@@ -26,12 +26,13 @@
 $.fn.rowify = function(options) {
   // Create some defaults, extending them with any options that were provided
   var settings = $.extend( {
-      'minHeight' : 0
+      minHeight : 0,
+      equalize: []
       }, options);
 
-  var $this = $(this); // Cache all related containers to variable
+  var $current = $(this); // Cache all related containers to variable
 
-  $this.each(function() {
+  $current.each(function() {
     var $columns = $(this).children(), // Select object containing children
         tallest = 0; // Initialize height variable
 
@@ -43,10 +44,10 @@ $.fn.rowify = function(options) {
 
     $columns.each(function() {
     // For each column in the container, check the height. If it's the tallest then set 'tallest' to that height
-      var $this = $(this); // Cache current column to variable
+      var $thisColumn = $(this); // Cache current column to variable
 
-      if($this.outerHeight() > tallest) {
-        tallest = $this.outerHeight();
+      if($thisColumn.outerHeight() > tallest) {
+        tallest = $thisColumn.outerHeight();
       }
     });
 

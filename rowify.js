@@ -39,7 +39,7 @@ $.fn.rowify = function(options) {
       tallest = settings.minHeight;
     }
 
-    $columns.removeAttr('style'); // Clear styles for window resizing
+    $columns.css({'min-height': 0 }); // Clear styles for window resizing
 
     $columns.each(function() {
     // For each column in the container, check the height. If it's the tallest then set 'tallest' to that height

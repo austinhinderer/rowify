@@ -23,15 +23,20 @@
 //
 //////////////////////////////////////////////////////
 
-$.fn.rowify = function(min) {
+$.fn.rowify = function(options) {
+  // Create some defaults, extending them with any options that were provided
+  var settings = $.extend( {
+      'minHeight' : ''
+      }, options);
+
   var $this = $(this); // Cache all related containers to variable
 
   $this.each(function() {
     var $columns = $(this).children(), // Select object containing children
         tallest = 0; // Initialize height variable
 
-    if (min > 0 && min !== null) {
-      tallest = min;
+    if (settings.minHeight > 0 && settings.minHeight !== null) {
+      tallest = settings.minHeight;
     }
 
     $columns.removeAttr('style'); // Clear styles for window resizing

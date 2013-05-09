@@ -30,13 +30,12 @@ Easily keep columns even sized even in liquid layouts by running rowify on windo
 </script>
 ```
 
-You can specify a maximum or minimum height.
+You can specify a minimum height.
 ```
 <script>
   $(document).ready(function(){
       $('[data-same-height]').rowify({
-        max-height: 400,
-        min-height: 100
+        minHeight: 100
       });
   });
 </script>

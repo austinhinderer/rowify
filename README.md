@@ -6,6 +6,7 @@ Rowify is a jQuery based plugin for assisting with responsive column height prob
 To rowify a group of elements, simply select the container wrapping the elements.
 
 Example:
+```
 <div data-same-height>
     <div class="column">Short</div>
     <div class="column">Long column</div>
@@ -17,19 +18,20 @@ Example:
       $('[data-same-height]').rowify();
   });
 </script>
+```
 
 
 Easily keep columns even sized even in liquid layouts by running rowify on window resize.
-
+```
 <script>
   $(window).resize(function () {
       $('[data-same-height]').rowify();
   });
 </script>
-
+```
 
 You can specify a maximum or minimum height.
-
+```
 <script>
   $(document).ready(function(){
       $('[data-same-height]').rowify({
@@ -38,3 +40,4 @@ You can specify a maximum or minimum height.
       });
   });
 </script>
+```

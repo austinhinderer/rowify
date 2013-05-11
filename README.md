@@ -5,6 +5,10 @@ Rowify is a jQuery based plugin for assisting with responsive column height prob
 
 To rowify a group of elements, simply select the container wrapping the elements.
 
+You can now select several groups of containers and equalize them against similar classed containers.
+
+I've added a simple example html file to the repo to better illustrate what's going on.
+
 Example:
 ```
 <div data-same-height>
@@ -36,6 +40,17 @@ You can specify a minimum height.
   $(document).ready(function(){
       $('[data-same-height]').rowify({
         minHeight: 100
+      });
+  });
+</script>
+```
+
+Equalize multiple containers against their like classes
+```
+<script>
+  $(document).ready(function(){
+      $('[data-same-height]').rowify({
+        equalize: ['smallBox', 'tallBox']
       });
   });
 </script>

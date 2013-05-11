@@ -23,66 +23,66 @@
 //
 //////////////////////////////////////////////////////
 
-$.fn.rowify = function(options) {
-  // Create some defaults, extending them with any options that were provided
-  var settings = $.extend( {
-      minHeight : 0,
-      equalize: []
-      }, options);
+$.fn.rowify = function (options) {
+    "use strict";
 
-  // Object gets selected for Rowify to work on
-  var rowSet = [];
+    // Create some defaults, extending them with any options that were provided
+    var settings = $.extend({
+        minHeight : 0,
+        equalize: []
+    }, options),
+        rowSet = []; // Object gets selected for Rowify to work on
 
-  // Object gets added to first entry in the array
-  rowSet.push($(this));
+    // Object gets added to first entry in the array
+    rowSet.push($(this));
 
-  // Check if rowify has been provided a list of classes to rowify, or if it should work on the current object.
-  if (settings.equalize.length > 0) {
+    // Check if rowify has been provided a list of classes to rowify, or if it should work on the current object.
+    if (settings.equalize.length > 0) {
 
-    // Go through the equalize array and add each entry to the rowSet array
-    for (var i=0, j=settings.equalize.length; i<j; i++) {
-      rowSet.push($('.'+settings.equalize[i]));
+      // Go through the equalize array and add each entry to the rowSet array
+      for (var i=0, j=settings.equalize.length; i<j; i++) {
+        rowSet.push($('.'+settings.equalize[i]));
+      }
+
     }
 
-  }
+    if (rowSet.length === 1) {
+      // Set the height of the children of the original object to be equal
+      rowSet[0].setEqualHeights(settings, $(rowSet[0]).children());
 
-  if (rowSet.length === 1) {
-    // Set the height of the children of the original object to be equal
-    rowSet[0].setEqualHeights(settings, $(rowSet[0]).children());
+    } else if (rowSet.length > 1) {
 
-  } else if (rowSet.length > 1) {
+      // Go through the rowSet array and rowify each class
+      for (var x=0, y=settings.equalize.length; x<y; x++) {
+        rowSet[0].setEqualHeights(settings, rowSet[x+1]);
+      }
 
-    // Go through the rowSet array and rowify each class
-    for (var x=0, y=settings.equalize.length; x<y; x++) {
-      rowSet[0].setEqualHeights(settings, rowSet[x+1]);
     }
-
-  }
 
 };
 
 $.fn.setEqualHeights = function(settings, targets) {
-  var tallest = 0;
+    var tallest = 0;
 
-  // If we have a minimum height option passed into settings, update the tallest variable
-  if (settings.minHeight > 0 && settings.minHeight !== null) {
-    tallest = settings.minHeight;
-  }
-
-  // Clear inline minimum height
-  targets.css({'min-height': 0 });
-
-  // For each selected column, check the height. If it's the tallest then set 'tallest' to that height
-  targets.each(function() {
-    var $current = $(this); // Cache current column to variable
-
-    if($current.outerHeight() > tallest) {
-      tallest = $current.outerHeight();
+    // If we have a minimum height option passed into settings, update the tallest variable
+    if (settings.minHeight > 0 && settings.minHeight !== null) {
+      tallest = settings.minHeight;
     }
-  });
 
-  targets.each(function() {
-  // Set height for each column
-    $(this).css({'min-height': tallest+'px'});
-  });
+    // Clear inline minimum height
+    targets.css({'min-height': 0 });
+
+    // For each selected column, check the height. If it's the tallest then set 'tallest' to that height
+    targets.each(function() {
+      var $current = $(this); // Cache current column to variable
+
+      if($current.outerHeight() > tallest) {
+        tallest = $current.outerHeight();
+      }
+    });
+
+    targets.each(function() {
+    // Set height for each column
+      $(this).css({'min-height': tallest+'px'});
+    });
 };

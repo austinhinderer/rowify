@@ -47,6 +47,21 @@ You can specify a minimum height.
 
 Equalize multiple containers against their like classes
 ```
+<div data-same-height>
+  <div>
+    <div class="smallBox"></div>
+    <div class="tallBox"></div>
+  </div>
+  <div>
+    <div class="smallBox"></div>
+    <div class="tallBox"></div>
+  </div>
+  <div>
+    <div class="smallBox"></div>
+    <div class="tallBox"></div>
+  </div>
+</div>
+
 <script>
   $(document).ready(function(){
       $('[data-same-height]').rowify({

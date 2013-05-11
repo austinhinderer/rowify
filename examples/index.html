@@ -23,9 +23,12 @@
       .third:first-child {
         margin-left: 0;
       }
+      p, .smallBox {
+        margin: 0 0 15px;
+      }
     </style>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-    <script src="../rowify.js"></script>
+    <script src="../rowify.min.js"></script>
   </head>
   <body>
     <div class="examples" id="example1">
@@ -68,7 +71,7 @@
     $(document).ready(function() {
       $('#example1').rowify();
       $('#example2').rowify({
-        equalize: ['.smallbox', '.tallbox']
+        equalize: ['smallBox', 'tallBox']
       });
     });
     </script>

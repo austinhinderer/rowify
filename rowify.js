@@ -30,31 +30,59 @@ $.fn.rowify = function(options) {
       equalize: []
       }, options);
 
-  var $current = $(this); // Cache all related containers to variable
+  // Object gets selected for Rowify to work on
+  var rowSet = [];
 
-  $current.each(function() {
-    var $columns = $(this).children(), // Select object containing children
-        tallest = 0; // Initialize height variable
+  // Object gets added to first entry in the array
+  rowSet.push($(this));
 
-    if (settings.minHeight > 0 && settings.minHeight !== null) {
-      tallest = settings.minHeight;
+  // Check if rowify has been provided a list of classes to rowify, or if it should work on the current object.
+  if (settings.equalize.length > 0) {
+
+    // Go through the equalize array and add each entry to the rowSet array
+    for (var i=0, j=settings.equalize.length; i<j; i++) {
+      rowSet.push($('.'+settings.equalize[i]));
     }
 
-    $columns.css({'min-height': 0 }); // Clear styles for window resizing
+  }
 
-    $columns.each(function() {
-    // For each column in the container, check the height. If it's the tallest then set 'tallest' to that height
-      var $thisColumn = $(this); // Cache current column to variable
+  if (rowSet.length === 1) {
+    // Set the height of the children of the original object to be equal
+    rowSet[0].setEqualHeights(settings, $(rowSet[0]).children());
 
-      if($thisColumn.outerHeight() > tallest) {
-        tallest = $thisColumn.outerHeight();
-      }
-    });
+  } else if (rowSet.length > 1) {
 
-    $columns.each(function() {
-    // Set height for each column
-      $(this).css({'min-height': tallest+'px'});
-    });
+    // Go through the rowSet array and rowify each class
+    for (var x=0, y=settings.equalize.length; x<y; x++) {
+      rowSet[0].setEqualHeights(settings, rowSet[x+1]);
+    }
+
+  }
+
+};
+
+$.fn.setEqualHeights = function(settings, targets) {
+  var tallest = 0;
+
+  // If we have a minimum height option passed into settings, update the tallest variable
+  if (settings.minHeight > 0 && settings.minHeight !== null) {
+    tallest = settings.minHeight;
+  }
+
+  // Clear inline minimum height
+  targets.css({'min-height': 0 });
+
+  // For each selected column, check the height. If it's the tallest then set 'tallest' to that height
+  targets.each(function() {
+    var $current = $(this); // Cache current column to variable
+
+    if($current.outerHeight() > tallest) {
+      tallest = $current.outerHeight();
+    }
   });
 
+  targets.each(function() {
+  // Set height for each column
+    $(this).css({'min-height': tallest+'px'});
+  });
 };

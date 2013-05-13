@@ -29,7 +29,8 @@ $.fn.rowify = function (options) {
 
     // Create some defaults, extending them with any options that were provided
     var settings = $.extend({
-        minHeight : 0,
+        minHeight: 0,
+        useBoth: false,
         equalize: []
     }, options),
         rowSet = [], // Object gets selected for Rowify to work on
@@ -50,7 +51,7 @@ $.fn.rowify = function (options) {
 
     if (rowSet.length === 1) {
       // Set the height of the children of the original object to be equal
-      container.setEqualHeights(settings, $(rowSet[0]).children());
+      container.setEqualHeights(settings, container.children());
 
     } else if (rowSet.length > 1) {
 

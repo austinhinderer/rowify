@@ -26,15 +26,17 @@
 $.fn.rowify = function (options) {
     "use strict";
 
+
     // Create some defaults, extending them with any options that were provided
     var settings = $.extend({
         minHeight : 0,
         equalize: []
     }, options),
-        rowSet = []; // Object gets selected for Rowify to work on
+        rowSet = [], // Object gets selected for Rowify to work on
+        container = $(this);
 
     // Object gets added to first entry in the array
-    rowSet.push($(this));
+    rowSet.push(container);
 
     // Check if rowify has been provided a list of classes to rowify, or if it should work on the current object.
     if (settings.equalize.length > 0) {
@@ -48,13 +50,13 @@ $.fn.rowify = function (options) {
 
     if (rowSet.length === 1) {
       // Set the height of the children of the original object to be equal
-      rowSet[0].setEqualHeights(settings, $(rowSet[0]).children());
+      container.setEqualHeights(settings, $(rowSet[0]).children());
 
     } else if (rowSet.length > 1) {
 
       // Go through the rowSet array and rowify each class
       for (var x=0, y=settings.equalize.length; x<y; x++) {
-        rowSet[0].setEqualHeights(settings, rowSet[x+1]);
+        container.setEqualHeights(settings, rowSet[x+1]);
       }
 
     }

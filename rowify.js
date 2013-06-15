@@ -44,7 +44,7 @@ $.fn.rowify = function (options) {
 
       // Go through the equalize array and add each entry to the rowSet array
       for (var i=0, j=settings.equalize.length; i<j; i++) {
-        rowSet.push($('.'+settings.equalize[i]));
+        rowSet.push($(settings.equalize[i]));
       }
 
     }

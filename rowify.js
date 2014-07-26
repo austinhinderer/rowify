@@ -1,7 +1,9 @@
-//////////////////////////////////////////////////////
+/*////////////////////////////////////////////////////
+//
 // The MIT License (MIT)
 //
 // Copyright (c) 2013 Austin Hinderer
+// V1.0.1
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,10 +23,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
-//////////////////////////////////////////////////////
+////////////////////////////////////////////////////*/
 
-// http://youmightnotneedjquery.com/#extend
 (function() {
+  /* http://youmightnotneedjquery.com/#extend */
   var extend = function(out) {
     out = out || {};
 
@@ -71,7 +73,6 @@
 
   var rowify = function (options) {
     var settings = extend({
-          version   : '1.0.1',
           minHeight : 0,
           useBoth   : false,
           equalize  : []
@@ -90,8 +91,10 @@
     }
 
     if (rowSet.length === 1) {
+      // jQuery
       container.setEqualHeights(settings, container.children());
-    } else if (rowSet.length > 1) {
+    }
+    else if (rowSet.length > 1) {
       for (var x=0, y=settings.equalize.length; x<y; x++) {
         container.setEqualHeights(settings, rowSet[x+1]);
       }

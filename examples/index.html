@@ -28,7 +28,7 @@
       }
     </style>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-    <script src="../rowify.min.js"></script>
+    <script src="../rowify.js"></script>
   </head>
   <body>
     <div class="examples" id="example1">
@@ -65,21 +65,58 @@
         </div>
       </div>
     </div>
+    <div class="examples" id="example3">
+      <div class="third">
+        <p>Kogi organic master cleanse lo-fi, yr pork belly neutra consectetur bushwick. Keytar beard semiotics fap. Leggings vegan tempor pop-up odd future. Tumblr reprehenderit dreamcatcher, occaecat do kale chips enim typewriter exercitation excepteur cillum blue bottle banksy art party. Fugiat ut delectus locavore. Commodo flexitarian jean shorts cosby sweater consectetur deserunt mlkshk semiotics dolore sunt, direct trade consequat bushwick pinterest gluten-free. Farm-to-table assumenda occaecat dolor butcher, blog aesthetic scenester locavore pork belly cupidatat neutra proident intelligentsia keytar.</p>
+      </div>
+      <div class="third">
+        <p>Aliqua cillum in 3 wolf moon food truck nesciunt occupy. Polaroid cillum mcsweeney's, high life lo-fi ut tousled tofu wolf food truck. Umami vinyl sunt, sartorial vegan magna american apparel forage gastropub. Bushwick bicycle rights irony, neutra mlkshk consectetur sunt 8-bit church-key jean shorts swag salvia flexitarian placeat. You probably haven't heard of them iphone proident sed occupy, est williamsburg craft beer semiotics typewriter et beard. Authentic est pour-over narwhal enim. Whatever irure narwhal occupy, vice vegan flannel hella freegan bespoke ullamco church-key.</p>
+        <p>Farm-to-table pitchfork aute food truck cred, exercitation sunt labore you probably haven't heard of them nesciunt quinoa. Cosby sweater ethical irony, dolor mlkshk cred accusamus laboris in plaid velit. Sed truffaut 3 wolf moon, letterpress laboris cliche before they sold out fanny pack tousled. Literally selfies fingerstache qui YOLO, mcsweeney's velit sartorial deserunt freegan retro VHS. Actually before they sold out pork belly pinterest. Ethical sunt mixtape butcher post-ironic, etsy portland swag odd future consectetur freegan ad 3 wolf moon laboris cupidatat. Portland qui bespoke leggings excepteur tousled.</p>
+      </div>
+      <div class="third">
+        <p>Synth narwhal cardigan, occaecat sint excepteur PBR hella tofu four loko banh mi squid tempor mcsweeney's. Banksy blue bottle ad ex, gastropub forage placeat direct trade +1 whatever fugiat accusamus. Direct trade authentic farm-to-table, eu skateboard try-hard deep v assumenda do dreamcatcher pinterest. Minim keffiyeh keytar, gentrify vegan deserunt flexitarian williamsburg tonx duis direct trade. Literally disrupt YOLO single-origin coffee laboris. Cardigan dolore pickled, chillwave gastropub et retro. Consectetur lo-fi meh cillum, helvetica ethical pop-up proident commodo.</p>
+      </div>
+    </div>
+
+    <div class="examples" id="example4">
+      <div class="third">
+        <div class="smallBox">I'm small</div>
+        <div class="tallBox">
+          <p>Kogi organic master cleanse lo-fi, yr pork belly neutra consectetur bushwick. Keytar beard semiotics fap. Leggings vegan tempor pop-up odd future. Tumblr reprehenderit dreamcatcher, occaecat do kale chips enim typewriter exercitation excepteur cillum blue bottle banksy art party. Fugiat ut delectus locavore. Commodo flexitarian jean shorts cosby sweater consectetur deserunt mlkshk semiotics dolore sunt, direct trade consequat bushwick pinterest gluten-free. Farm-to-table assumenda occaecat dolor butcher, blog aesthetic scenester locavore pork belly cupidatat neutra proident intelligentsia keytar.</p>
+        </div>
+      </div>
+      <div class="third">
+        <div class="smallBox">I'm really tall. I'm so tall that I force other containers to get bigger and bigger and bigger and bigger and bigger and bigger and bigger and bigger and bigger and bigger and bigger and bigger and bigger and bigger and bigger and bigger and bigger and bigger and bigger and bigger and bigger and bigger and bigger and bigger and bigger and bigger and bigger</div>
+        <div class="tallBox">
+          <p>Aliqua cillum in 3 wolf moon food truck nesciunt occupy. Polaroid cillum mcsweeney's, high life lo-fi ut tousled tofu wolf food truck. Umami vinyl sunt, sartorial vegan magna american apparel forage gastropub. Bushwick bicycle rights irony, neutra mlkshk consectetur sunt 8-bit church-key jean shorts swag salvia flexitarian placeat. You probably haven't heard of them iphone proident sed occupy, est williamsburg craft beer semiotics typewriter et beard. Authentic est pour-over narwhal enim. Whatever irure narwhal occupy, vice vegan flannel hella freegan bespoke ullamco church-key.</p>
+          <p>Farm-to-table pitchfork aute food truck cred, exercitation sunt labore you probably haven't heard of them nesciunt quinoa. Cosby sweater ethical irony, dolor mlkshk cred accusamus laboris in plaid velit. Sed truffaut 3 wolf moon, letterpress laboris cliche before they sold out fanny pack tousled. Literally selfies fingerstache qui YOLO, mcsweeney's velit sartorial deserunt freegan retro VHS. Actually before they sold out pork belly pinterest. Ethical sunt mixtape butcher post-ironic, etsy portland swag odd future consectetur freegan ad 3 wolf moon laboris cupidatat. Portland qui bespoke leggings excepteur tousled.</p>
+        </div>
+      </div>
+      <div class="third">
+        <div class="smallBox">I, too, am small</div>
+        <div class="tallBox">
+          <p>Synth narwhal cardigan, occaecat sint excepteur PBR hella tofu four loko banh mi squid tempor mcsweeney's. Banksy blue bottle ad ex, gastropub forage placeat direct trade +1 whatever fugiat accusamus. Direct trade authentic farm-to-table, eu skateboard try-hard deep v assumenda do dreamcatcher pinterest. Minim keffiyeh keytar, gentrify vegan deserunt flexitarian williamsburg tonx duis direct trade. Literally disrupt YOLO single-origin coffee laboris. Cardigan dolore pickled, chillwave gastropub et retro. Consectetur lo-fi meh cillum, helvetica ethical pop-up proident commodo.</p>
+        </div>
+      </div>
+    </div>
 
 
     <script>
     $(document).ready(function() {
-      console.time('profile');
+      // console.time('profile');
 
-      for ( var i=0; i < 10000; i++) {
+      // for ( var i=0; i < 10000; i++) {
         $('#example1').rowify();
-      }
+        $('#example2').rowify({
+          equalize: ['.smallBox', '.tallBox']
+        });
+        $('#example3').rowify();
+        $('#example4').rowify({
+          equalize: ['.smallBox', '.tallBox']
+        });
+      // }
 
-      var time = console.timeEnd('profile');
-
-      // $('#example2').rowify({
-      //   equalize: ['.smallBox', '.tallBox']
-      // });
+      // var time = console.timeEnd('profile');
     });
 
     // $(window).on('resize', function() {

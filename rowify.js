@@ -1,18 +1,18 @@
 //////////////////////////////////////////////////////
 // The MIT License (MIT)
-// 
+//
 // Copyright (c) 2013 Austin Hinderer
-// 
+//
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
 // in the Software without restriction, including without limitation the rights
 // to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 // copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
-// 
+//
 // The above copyright notice and this permission notice shall be included in
 // all copies or substantial portions of the Software.
-// 
+//
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -23,69 +23,90 @@
 //
 //////////////////////////////////////////////////////
 
-$.fn.rowify = function (options) {
-    "use strict";
+// http://youmightnotneedjquery.com/#extend
+var extend = function(out) {
+  out = out || {};
 
+  for (var i = 1; i < arguments.length; i++) {
+    if (!arguments[i]) {
+      continue;
+    }
 
-    // Create some defaults, extending them with any options that were provided
-    var settings = $.extend({
+    for (var key in arguments[i]) {
+      if (arguments[i].hasOwnProperty(key)) {
+        out[key] = arguments[i][key];
+      }
+    }
+  }
+
+  return out;
+};
+
+function Rowify() {
+    //intialize bullshit
+}
+
+Rowify.prototype.rowify = function (options) {
+  var settings = extend({
+        version  : '1.0.1',
         minHeight: 0,
-        useBoth: false,
-        equalize: []
-    }, options),
-        rowSet = [], // Object gets selected for Rowify to work on
-        container = $(this);
+        useBoth  : false,
+        equalize : []
+      }, options),
+      rowSet = [],
+      container = this;
 
-    // Object gets added to first entry in the array
-    rowSet.push(container);
+  rowSet.push(container);
 
-    // Check if rowify has been provided a list of classes to rowify, or if it should work on the current object.
-    if (settings.equalize.length > 0) {
+  if (settings.equalize.length > 0) {
+    for (var i=0, j=settings.equalize.length; i<j; i++) {
 
-      // Go through the equalize array and add each entry to the rowSet array
-      for (var i=0, j=settings.equalize.length; i<j; i++) {
-        rowSet.push($(settings.equalize[i]));
-      }
+      // jQuery
+      rowSet.push($(settings.equalize[i]));
+    }
+  }
 
+  if (rowSet.length === 1) {
+    // jQuery
+    container.setEqualHeights(settings, container.children());
+
+  } else if (rowSet.length > 1) {
+
+    for (var x=0, y=settings.equalize.length; x<y; x++) {
+      // jQuery
+      container.setEqualHeights(settings, rowSet[x+1]);
     }
 
-    if (rowSet.length === 1) {
-      // Set the height of the children of the original object to be equal
-      container.setEqualHeights(settings, container.children());
+  }
 
-    } else if (rowSet.length > 1) {
-
-      // Go through the rowSet array and rowify each class
-      for (var x=0, y=settings.equalize.length; x<y; x++) {
-        container.setEqualHeights(settings, rowSet[x+1]);
-      }
-
-    }
-
+  return this;
 };
 
-$.fn.setEqualHeights = function(settings, targets) {
-    var tallest = 0;
+Rowify.prototype.setEqualHeights = function(settings, targets) {
+  var s = settings,
+      tallest = 0,
+      targetLength = targets.length;
 
-    // If we have a minimum height option passed into settings, update the tallest variable
-    if (settings.minHeight > 0 && settings.minHeight !== null) {
-      tallest = settings.minHeight;
+  if (s.minHeight > 0 && s.minHeight !== null) {
+    tallest = s.minHeight;
+  }
+
+  for(var i = 0; i < targetLength; i++) {
+    targets[i].style.minHeight = '0px';
+  }
+
+  for(var j = 0; j < targetLength; j++) {
+    if(targets[j].offsetHeight > tallest) {
+      tallest = targets[j].offsetHeight;
     }
+  }
 
-    // Clear inline minimum height
-    targets.css({'min-height': 0 });
+  for(var k = 0; k < targetLength; k++) {
+    targets[k].style.minHeight = tallest+'px';
+  }
 
-    // For each selected column, check the height. If it's the tallest then set 'tallest' to that height
-    targets.each(function() {
-      var $current = $(this); // Cache current column to variable
-
-      if($current.outerHeight() > tallest) {
-        tallest = $current.outerHeight();
-      }
-    });
-
-    targets.each(function() {
-    // Set height for each column
-      $(this).css({'min-height': tallest+'px'});
-    });
+  return this;
 };
+
+var instanceOfRowify = new Rowify();
+instanceOfRowify.rowify();

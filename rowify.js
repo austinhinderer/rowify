@@ -24,89 +24,90 @@
 //////////////////////////////////////////////////////
 
 // http://youmightnotneedjquery.com/#extend
-var extend = function(out) {
-  out = out || {};
+(function() {
+  var extend = function(out) {
+    out = out || {};
 
-  for (var i = 1; i < arguments.length; i++) {
-    if (!arguments[i]) {
-      continue;
-    }
+    for (var i = 1; i < arguments.length; i++) {
+      if (!arguments[i]) {
+        continue;
+      }
 
-    for (var key in arguments[i]) {
-      if (arguments[i].hasOwnProperty(key)) {
-        out[key] = arguments[i][key];
+      for (var key in arguments[i]) {
+        if (arguments[i].hasOwnProperty(key)) {
+          out[key] = arguments[i][key];
+        }
       }
     }
-  }
 
-  return out;
-};
+    return out;
+  };
 
-function Rowify() {
-    //intialize bullshit
-}
+  var setEqualHeights = function(settings, targets) {
+    var s = settings,
+        tallest = 0,
+        targetLength = targets.length;
 
-Rowify.prototype.rowify = function (options) {
-  var settings = extend({
-        version  : '1.0.1',
-        minHeight: 0,
-        useBoth  : false,
-        equalize : []
-      }, options),
-      rowSet = [],
-      container = this;
+    if (s.minHeight > 0 && s.minHeight !== null) {
+      tallest = s.minHeight;
+    }
 
-  rowSet.push(container);
+    for(var i = 0; i < targetLength; i++) {
+      targets[i].style.minHeight = '0px';
+    }
 
-  if (settings.equalize.length > 0) {
-    for (var i=0, j=settings.equalize.length; i<j; i++) {
+    for(var j = 0; j < targetLength; j++) {
+      if(targets[j].offsetHeight > tallest) {
+        tallest = targets[j].offsetHeight;
+      }
+    }
 
+    for(var k = 0; k < targetLength; k++) {
+      targets[k].style.minHeight = tallest+'px';
+    }
+
+    return this;
+  };
+
+  var rowify = function (options) {
+    var settings = extend({
+          version  : '1.0.1',
+          minHeight: 0,
+          useBoth  : false,
+          equalize : []
+        }, options),
+        rowSet = [],
+        container = this;
+    this.setEqualHeights = setEqualHeights;
+
+    rowSet.push(container);
+
+    if (settings.equalize.length > 0) {
+      for (var i=0, j=settings.equalize.length; i<j; i++) {
+        // jQuery
+        rowSet.push($(settings.equalize[i]));
+      }
+    }
+
+    if (rowSet.length === 1) {
       // jQuery
-      rowSet.push($(settings.equalize[i]));
+      container.setEqualHeights(settings, container.children());
+    } else if (rowSet.length > 1) {
+      for (var x=0, y=settings.equalize.length; x<y; x++) {
+        // jQuery
+        container.setEqualHeights(settings, rowSet[x+1]);
+      }
     }
+    return this;
+  };
+
+  if (typeof $ === 'function') {
+    $.fn.rowify = rowify;
+  } else if (typeof jQuery === 'function') {
+    jQuery.fn.rowify = rowify;
+  } else {
+    console.log('saving to window');
+    console.log(window); 
+    window.rowify = rowify;
   }
-
-  if (rowSet.length === 1) {
-    // jQuery
-    container.setEqualHeights(settings, container.children());
-
-  } else if (rowSet.length > 1) {
-
-    for (var x=0, y=settings.equalize.length; x<y; x++) {
-      // jQuery
-      container.setEqualHeights(settings, rowSet[x+1]);
-    }
-
-  }
-
-  return this;
-};
-
-Rowify.prototype.setEqualHeights = function(settings, targets) {
-  var s = settings,
-      tallest = 0,
-      targetLength = targets.length;
-
-  if (s.minHeight > 0 && s.minHeight !== null) {
-    tallest = s.minHeight;
-  }
-
-  for(var i = 0; i < targetLength; i++) {
-    targets[i].style.minHeight = '0px';
-  }
-
-  for(var j = 0; j < targetLength; j++) {
-    if(targets[j].offsetHeight > tallest) {
-      tallest = targets[j].offsetHeight;
-    }
-  }
-
-  for(var k = 0; k < targetLength; k++) {
-    targets[k].style.minHeight = tallest+'px';
-  }
-
-  return this;
-};
-
-var instanceOfRowify = new Rowify();
-instanceOfRowify.rowify();
+})();

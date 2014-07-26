@@ -71,10 +71,10 @@
 
   var rowify = function (options) {
     var settings = extend({
-          version  : '1.0.1',
-          minHeight: 0,
-          useBoth  : false,
-          equalize : []
+          version   : '1.0.1',
+          minHeight : 0,
+          useBoth   : false,
+          equalize  : []
         }, options),
         rowSet = [],
         container = this;
@@ -83,18 +83,16 @@
     rowSet.push(container);
 
     if (settings.equalize.length > 0) {
-      for (var i=0, j=settings.equalize.length; i<j; i++) {
+      for (var m=0, n=settings.equalize.length; m<n; m++) {
         // jQuery
-        rowSet.push($(settings.equalize[i]));
+        rowSet.push($(settings.equalize[m]));
       }
     }
 
     if (rowSet.length === 1) {
-      // jQuery
       container.setEqualHeights(settings, container.children());
     } else if (rowSet.length > 1) {
       for (var x=0, y=settings.equalize.length; x<y; x++) {
-        // jQuery
         container.setEqualHeights(settings, rowSet[x+1]);
       }
     }

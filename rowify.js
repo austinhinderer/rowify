@@ -106,8 +106,6 @@
   } else if (typeof jQuery === 'function') {
     jQuery.fn.rowify = rowify;
   } else {
-    console.log('saving to window');
-    console.log(window); 
     window.rowify = rowify;
   }
 })();

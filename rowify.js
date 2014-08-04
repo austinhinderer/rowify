@@ -58,20 +58,20 @@
       targets[i].style.minHeight = '0px';
     }
 
-    for(var j = 0; j < targetLength; j++) {
-      if(targets[j].offsetHeight > tallest) {
-        tallest = targets[j].offsetHeight;
+    for(i = 0; i < targetLength; i++) {
+      if(targets[i].offsetHeight > tallest) {
+        tallest = targets[i].offsetHeight;
       }
     }
 
-    for(var k = 0; k < targetLength; k++) {
-      targets[k].style.minHeight = tallest+'px';
+    for(i = 0; i < targetLength; i++) {
+      targets[i].style.minHeight = tallest+'px';
     }
 
     return this;
   };
 
-  var rowify = function (options) {
+  var rowify = function(options) {
     var settings = extend({
           minHeight : 0,
           useBoth   : false,
@@ -81,12 +81,16 @@
         container = this;
     this.setEqualHeights = setEqualHeights;
 
+    // Setup iterators for loops
+    var i = 0,
+        j = 0;
+
     rowSet.push(container);
 
     if (settings.equalize.length > 0) {
-      for (var m=0, n=settings.equalize.length; m<n; m++) {
+      for (i=0, j=settings.equalize.length; i<j; i++) {
         // jQuery
-        rowSet.push($(settings.equalize[m]));
+        rowSet.push($(settings.equalize[i]));
       }
     }
 
@@ -95,8 +99,8 @@
       container.setEqualHeights(settings, container.children());
     }
     else if (rowSet.length > 1) {
-      for (var x=0, y=settings.equalize.length; x<y; x++) {
-        container.setEqualHeights(settings, rowSet[x+1]);
+      for (i=0, j=settings.equalize.length; i<j; i++) {
+        container.setEqualHeights(settings, rowSet[i+1]);
       }
     }
     return this;

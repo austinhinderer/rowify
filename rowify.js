@@ -83,23 +83,19 @@
 
     this.setEqualHeights = setEqualHeights;
 
-    rowSet.push(container);
-
-    if (len > 0) {
+    if (rowSet.length > 0) {
       for (i=0; i<len; i++) {
         // jQuery
         rowSet.push($(settings.equalize[i]));
       }
+
+      for (i=0; i<len; i++) {
+        container.setEqualHeights(settings, rowSet[i]);
+      }
+    } else {
+      container.setEqualHeights(settings, container.children());
     }
 
-    if (rowSet.length === 1) {
-      // jQuery
-      container.setEqualHeights(settings, container.children());
-    } else if (rowSet.length > 1) {
-      for (i=0; i<len; i++) {
-        container.setEqualHeights(settings, rowSet[i+1]);
-      }
-    }
     return this;
   };
 

@@ -25,7 +25,7 @@
 //
 ////////////////////////////////////////////////////*/
 
-(function() {
+;(function() {
   /* http://youmightnotneedjquery.com/#extend */
   var extend = function(out) {
     out = out || {};
@@ -83,12 +83,12 @@
 
     // Setup iterators for loops
     var i = 0,
-        j = 0;
+        len = settings.equalize.length;
 
     rowSet.push(container);
 
     if (settings.equalize.length > 0) {
-      for (i=0, j=settings.equalize.length; i<j; i++) {
+      for (i=0; i<len; i++) {
         // jQuery
         rowSet.push($(settings.equalize[i]));
       }
@@ -97,9 +97,8 @@
     if (rowSet.length === 1) {
       // jQuery
       container.setEqualHeights(settings, container.children());
-    }
-    else if (rowSet.length > 1) {
-      for (i=0, j=settings.equalize.length; i<j; i++) {
+    } else if (rowSet.length > 1) {
+      for (i=0; i<len; i++) {
         container.setEqualHeights(settings, rowSet[i+1]);
       }
     }

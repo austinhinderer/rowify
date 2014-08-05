@@ -65,7 +65,7 @@ Equalize multiple containers against their like classes
 <script>
   $(document).ready(function(){
       $('[data-same-height]').rowify({
-        equalize: ['smallBox', 'tallBox']
+        equalize: ['.smallBox', '.tallBox']
       });
   });
 </script>

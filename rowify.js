@@ -78,12 +78,11 @@
           equalize  : []
         }, options),
         rowSet = [],
-        container = this;
-    this.setEqualHeights = setEqualHeights;
-
-    // Setup iterators for loops
-    var i = 0,
+        container = this,
+        i = 0,
         len = settings.equalize.length;
+        
+    this.setEqualHeights = setEqualHeights;
 
     rowSet.push(container);
 

@@ -74,19 +74,18 @@
   var rowify = function(options) {
     var settings = extend({
           minHeight : 0,
-          useBoth   : false,
-          equalize  : []
+          equalize : []
         }, options),
         rowSet = [],
         container = this,
         i = 0,
         len = settings.equalize.length;
-        
+
     this.setEqualHeights = setEqualHeights;
 
     rowSet.push(container);
 
-    if (settings.equalize.length > 0) {
+    if (len > 0) {
       for (i=0; i<len; i++) {
         // jQuery
         rowSet.push($(settings.equalize[i]));

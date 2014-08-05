@@ -83,7 +83,7 @@
 
     this.setEqualHeights = setEqualHeights;
 
-    if (rowSet.length > 0) {
+    if (len > 0) {
       for (i=0; i<len; i++) {
         // jQuery
         rowSet.push($(settings.equalize[i]));

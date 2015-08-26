@@ -35,16 +35,15 @@
         }, options),
         rowSet = [],
         container = settings.target,
-        i = 0,
         len = settings.equalize.length;
 
     if (len > 0) {
-      for (i=0; i<len; i++) {
+      for (var i = 0; i < len; i++) {
         rowSet.push($(settings.equalize[i]));
       }
 
-      for (i=0; i<len; i++) {
-        this.setEqualHeights(settings, rowSet[i]);
+      for (var j = 0; j < len; j++) {
+        this.setEqualHeights(settings, rowSet[j]);
       }
     } else {
       this.setEqualHeights(settings, container.children());
@@ -62,14 +61,14 @@
       targets[i].style.minHeight = s.minHeight + 'px';
     }
 
-    for (i = 0; i < targetLength; i++) {
-      if(targets[i].offsetHeight > tallest) {
-        tallest = targets[i].offsetHeight;
+    for (var j = 0; j < targetLength; j++) {
+      if(targets[j].offsetHeight > tallest) {
+        tallest = targets[j].offsetHeight;
       }
     }
 
-    for (i = 0; i < targetLength; i++) {
-      targets[i].style.minHeight = tallest + 'px';
+    for (var k = 0; k < targetLength; k++) {
+      targets[k].style.minHeight = tallest + 'px';
     }
 
     return this;
@@ -95,10 +94,10 @@
 
   if (typeof define === 'function' && define.amd) {
     define(function() {
-      return rowify;
+      return Rowify;
     });
   }
 
-  window.rowify = Rowify;
+  window.Rowify = Rowify;
 
 })();

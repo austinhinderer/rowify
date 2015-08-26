@@ -70,24 +70,6 @@
     return this;
   };
 
-  Rowify.prototype.extend = function(out) {
-    out = out;
-
-    for (var i = 1; i < arguments.length; i++) {
-      if (!arguments[i]) {
-        continue;
-      }
-
-      for (var key in arguments[i]) {
-        if (arguments[i].hasOwnProperty(key)) {
-          out[key] = arguments[i][key];
-        }
-      }
-    }
-
-    return out;
-  };
-
   if (typeof define === 'function' && define.amd) {
     define(function() {
       return Rowify;

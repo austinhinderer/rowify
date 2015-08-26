@@ -34,7 +34,6 @@
           equalize : []
         }, options),
         rowSet = [],
-        container = settings.target,
         len = settings.equalize.length;
 
     if (len > 0) {
@@ -46,7 +45,7 @@
         this.setEqualHeights(settings, rowSet[j]);
       }
     } else {
-      this.setEqualHeights(settings, container.children());
+      this.setEqualHeights(settings, settings.target.children());
     }
 
     return this;
@@ -54,7 +53,7 @@
 
   Rowify.prototype.setEqualHeights = function(settings, targets) {
     var s = settings,
-        tallest = 0,
+        tallest = 1,
         targetLength = targets.length;
 
     for (var i = 0; i < targetLength; i++) {

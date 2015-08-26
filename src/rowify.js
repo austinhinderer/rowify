@@ -71,7 +71,7 @@
 
   var rowify = function(options) {
     var settings = extend({
-          minHeight : 0,
+          minHeight : 1,
           equalize : []
         }, options),
         rowSet = [],

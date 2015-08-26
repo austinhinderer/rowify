@@ -29,35 +29,35 @@
   'use strict';
 
   function Rowify(options) {
-    var settings = this.extend({}, {
-          minHeight : 1,
-          equalize : []
-        }, options),
-        rowSet = [],
-        len = settings.equalize.length;
+    this.settings = this.extend({}, {
+      minHeight : 1,
+      equalize : []
+    }, options);
+
+    var len = this.settings.equalize.length,
+        rowSet = [];
 
     if (len > 0) {
       for (var i = 0; i < len; i++) {
-        rowSet.push($(settings.equalize[i]));
+        rowSet.push($(this.settings.equalize[i]));
       }
 
       for (var j = 0; j < len; j++) {
-        this.setEqualHeights(settings, rowSet[j]);
+        this.setEqualHeights(rowSet[j]);
       }
     } else {
-      this.setEqualHeights(settings, settings.target.children());
+      this.setEqualHeights(this.settings.target.children());
     }
 
     return this;
   }
 
-  Rowify.prototype.setEqualHeights = function(settings, targets) {
-    var s = settings,
-        tallest = 1,
+  Rowify.prototype.setEqualHeights = function(targets) {
+    var tallest = 1,
         targetLength = targets.length;
 
     for (var i = 0; i < targetLength; i++) {
-      targets[i].style.minHeight = s.minHeight + 'px';
+      targets[i].style.minHeight = this.settings.minHeight + 'px';
     }
 
     for (var j = 0; j < targetLength; j++) {

@@ -95,8 +95,8 @@
     define(function() {
       return Rowify;
     });
+  } else {
+    window.Rowify = Rowify;
   }
-
-  window.Rowify = Rowify;
 
 })();

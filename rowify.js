@@ -61,7 +61,7 @@
     }
 
     for (var j = 0; j < targetLength; j++) {
-      if(targets[j].offsetHeight > tallest) {
+      if (targets[j].offsetHeight > tallest) {
         tallest = targets[j].offsetHeight;
       }
     }

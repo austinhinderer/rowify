@@ -26,7 +26,7 @@
 ////////////////////////////////////////////////////*/
 
 ;(function($) {
-  "use strict";
+  'use strict';
 
   /* http://youmightnotneedjquery.com/#extend */
   var extend = function(out) {
@@ -52,22 +52,18 @@
         tallest = 0,
         targetLength = targets.length;
 
-    if (s.minHeight > 0 && s.minHeight !== null) {
-      tallest = s.minHeight;
+    for (var i = 0; i < targetLength; i++) {
+      targets[i].style.minHeight = s.minHeight + 'px';
     }
 
-    for(var i = 0; i < targetLength; i++) {
-      targets[i].style.minHeight = '0px';
-    }
-
-    for(i = 0; i < targetLength; i++) {
+    for (i = 0; i < targetLength; i++) {
       if(targets[i].offsetHeight > tallest) {
         tallest = targets[i].offsetHeight;
       }
     }
 
-    for(i = 0; i < targetLength; i++) {
-      targets[i].style.minHeight = tallest+'px';
+    for (i = 0; i < targetLength; i++) {
+      targets[i].style.minHeight = tallest + 'px';
     }
 
     return this;

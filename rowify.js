@@ -74,7 +74,7 @@
   };
 
   Rowify.prototype.extend = function(out) {
-    out = out || {};
+    out = out;
 
     for (var i = 1; i < arguments.length; i++) {
       if (!arguments[i]) {

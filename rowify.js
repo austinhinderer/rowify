@@ -34,16 +34,11 @@
       equalize : []
     }, options);
 
-    var len = this.settings.equalize.length,
-        rowSet = [];
+    var len = this.settings.equalize.length;
 
     if (len > 0) {
       for (var i = 0; i < len; i++) {
-        rowSet.push($(this.settings.equalize[i]));
-      }
-
-      for (var j = 0; j < len; j++) {
-        this.setEqualHeights(rowSet[j]);
+        this.setEqualHeights($(this.settings.equalize[i]));
       }
     } else {
       this.setEqualHeights(this.settings.target.children());

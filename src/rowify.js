@@ -25,7 +25,9 @@
 //
 ////////////////////////////////////////////////////*/
 
-;(function() {
+;(function($) {
+  "use strict";
+
   /* http://youmightnotneedjquery.com/#extend */
   var extend = function(out) {
     out = out || {};
@@ -105,4 +107,4 @@
   } else {
     window.rowify = rowify;
   }
-})();
+})(jQuery);

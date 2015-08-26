@@ -44,7 +44,7 @@
       </div>
     </div>
 
-    <div class="examples" id="example2">
+    <div class="examples rowify" data-rowify-equalize=".smallBox,.tallBox" id="example2">
       <div class="third">
         <div class="smallBox">I'm small</div>
         <div class="tallBox">
@@ -71,14 +71,7 @@
       // console.time('profile');
 
       // for ( var i=0; i < 10000; i++) {
-        var rowify = new Rowify({
-          target: $('#example1')
-        });
-
-        var rowify2 = new Rowify({
-          target: $('#example2'),
-          equalize: ['.smallBox', '.tallBox']
-        });
+        var rowify = new Rowify();
 
         // $('#example1').rowify();
         // $('#example2').rowify({

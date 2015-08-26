@@ -28,31 +28,33 @@
 ;(function() {
   'use strict';
 
-  function Rowify(options) {
-    this.settings = this.extend({}, {
-      minHeight : 1,
-      equalize : []
-    }, options);
+  function Rowify() {
+    this.minHeight = 1;
+    this.rowifyTargets = document.querySelectorAll('.rowify');
 
-    var len = this.settings.equalize.length;
+    for (var i = 0, len = this.rowifyTargets.length; i < len; i++) {
+      var $target = $(this.rowifyTargets[i]);
 
-    if (len > 0) {
-      for (var i = 0; i < len; i++) {
-        this.setEqualHeights($(this.settings.equalize[i]));
+      if ($target.data('rowify-equalize')) {
+        var equalizeTargets = $target.data('rowify-equalize').split(',');
+
+        for (var j = 0, len2 = equalizeTargets.length; j < len2; j++) {
+          this.setEqualHeights($(equalizeTargets[j]));
+        }        
+      } else {
+        this.setEqualHeights($target.children());
       }
-    } else {
-      this.setEqualHeights(this.settings.target.children());
     }
 
     return this;
   }
 
   Rowify.prototype.setEqualHeights = function(targets) {
-    var tallest = 1,
+    var tallest = this.minHeight,
         targetLength = targets.length;
 
     for (var i = 0; i < targetLength; i++) {
-      targets[i].style.minHeight = this.settings.minHeight + 'px';
+      targets[i].style.minHeight = this.minHeight + 'px';
     }
 
     for (var j = 0; j < targetLength; j++) {

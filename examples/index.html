@@ -28,7 +28,7 @@
       }
     </style>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-    <script src="../rowify.js"></script>
+    <script src="../dist/rowify.min.js"></script>
   </head>
   <body>
     <div class="examples" id="example1">
@@ -71,18 +71,18 @@
       // console.time('profile');
 
       // for ( var i=0; i < 10000; i++) {
-        $('#example1').rowify();
-        $('#example2').rowify({
+        var rowify = new Rowify({
+          target: $('#example1')
+        });
+
+        var rowify2 = new Rowify({
+          target: $('#example2'),
           equalize: ['.smallBox', '.tallBox']
         });
       // };
 
       // var time = console.timeEnd('profile');
     });
-
-    // $(window).on('resize', function() {
-    //   $('#example1').rowify();
-    // })
     </script>
   </body>
 </html>

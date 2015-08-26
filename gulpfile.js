@@ -21,7 +21,7 @@ gulp.task('scripts', function() {
     .pipe(concat('rowify.js'))
     .pipe(gulp.dest('dist'))
     .pipe(rename({ suffix: '.min' }))
-    .pipe(uglify())
+    //.pipe(uglify())
     .pipe(gulp.dest('dist'))
     .pipe(notify({ message: 'Scripts task complete' }));
 });

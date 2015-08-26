@@ -2,8 +2,8 @@
 //
 // The MIT License (MIT)
 //
-// Copyright (c) 2013 Austin Hinderer
-// V1.0.2
+// Copyright (c) 2015 Austin Hinderer
+// V1.1.0
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -25,29 +25,35 @@
 //
 ////////////////////////////////////////////////////*/
 
-;(function($) {
+;(function() {
   'use strict';
 
-  /* http://youmightnotneedjquery.com/#extend */
-  var extend = function(out) {
-    out = out || {};
+  function Rowify(options) {
+    var settings = this.extend({}, {
+          minHeight : 1,
+          equalize : []
+        }, options),
+        rowSet = [],
+        container = settings.target,
+        i = 0,
+        len = settings.equalize.length;
 
-    for (var i = 1; i < arguments.length; i++) {
-      if (!arguments[i]) {
-        continue;
+    if (len > 0) {
+      for (i=0; i<len; i++) {
+        rowSet.push($(settings.equalize[i]));
       }
 
-      for (var key in arguments[i]) {
-        if (arguments[i].hasOwnProperty(key)) {
-          out[key] = arguments[i][key];
-        }
+      for (i=0; i<len; i++) {
+        this.setEqualHeights(settings, rowSet[i]);
       }
+    } else {
+      this.setEqualHeights(settings, container.children());
     }
 
-    return out;
-  };
+    return this;
+  }
 
-  var setEqualHeights = function(settings, targets) {
+  Rowify.prototype.setEqualHeights = function(settings, targets) {
     var s = settings,
         tallest = 0,
         targetLength = targets.length;
@@ -69,31 +75,22 @@
     return this;
   };
 
-  var rowify = function(options) {
-    var settings = extend({
-          minHeight : 1,
-          equalize : []
-        }, options),
-        rowSet = [],
-        container = this,
-        i = 0,
-        len = settings.equalize.length;
+  Rowify.prototype.extend = function(out) {
+    out = out || {};
 
-    this.setEqualHeights = setEqualHeights;
-
-    if (len > 0) {
-      for (i=0; i<len; i++) {
-        rowSet.push($(settings.equalize[i]));
+    for (var i = 1; i < arguments.length; i++) {
+      if (!arguments[i]) {
+        continue;
       }
 
-      for (i=0; i<len; i++) {
-        container.setEqualHeights(settings, rowSet[i]);
+      for (var key in arguments[i]) {
+        if (arguments[i].hasOwnProperty(key)) {
+          out[key] = arguments[i][key];
+        }
       }
-    } else {
-      container.setEqualHeights(settings, container.children());
     }
 
-    return this;
+    return out;
   };
 
   if (typeof define === 'function' && define.amd) {
@@ -102,11 +99,6 @@
     });
   }
 
-  if (typeof $ === 'function') {
-    $.fn.rowify = rowify;
-  } else if (typeof jQuery === 'function') {
-    jQuery.fn.rowify = rowify;
-  } else {
-    window.rowify = rowify;
-  }
-})(jQuery);
+  window.rowify = Rowify;
+
+})();

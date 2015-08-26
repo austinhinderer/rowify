@@ -2,8 +2,8 @@
 //
 // The MIT License (MIT)
 //
-// Copyright (c) 2013 Austin Hinderer
-// V1.0.2
+// Copyright (c) 2015 Austin Hinderer
+// V1.1.0
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -25,11 +25,55 @@
 //
 ////////////////////////////////////////////////////*/
 
-;(function($) {
+;(function() {
   'use strict';
 
-  /* http://youmightnotneedjquery.com/#extend */
-  var extend = function(out) {
+  function Rowify(options) {
+    this.settings = this.extend({}, {
+      minHeight : 1,
+      equalize : []
+    }, options);
+
+    var len = this.settings.equalize.length,
+        rowSet = [];
+
+    if (len > 0) {
+      for (var i = 0; i < len; i++) {
+        rowSet.push($(this.settings.equalize[i]));
+      }
+
+      for (var j = 0; j < len; j++) {
+        this.setEqualHeights(rowSet[j]);
+      }
+    } else {
+      this.setEqualHeights(this.settings.target.children());
+    }
+
+    return this;
+  }
+
+  Rowify.prototype.setEqualHeights = function(targets) {
+    var tallest = 1,
+        targetLength = targets.length;
+
+    for (var i = 0; i < targetLength; i++) {
+      targets[i].style.minHeight = this.settings.minHeight + 'px';
+    }
+
+    for (var j = 0; j < targetLength; j++) {
+      if (targets[j].offsetHeight > tallest) {
+        tallest = targets[j].offsetHeight;
+      }
+    }
+
+    for (var k = 0; k < targetLength; k++) {
+      targets[k].style.minHeight = tallest + 'px';
+    }
+
+    return this;
+  };
+
+  Rowify.prototype.extend = function(out) {
     out = out || {};
 
     for (var i = 1; i < arguments.length; i++) {
@@ -47,66 +91,12 @@
     return out;
   };
 
-  var setEqualHeights = function(settings, targets) {
-    var s = settings,
-        tallest = 0,
-        targetLength = targets.length;
-
-    for (var i = 0; i < targetLength; i++) {
-      targets[i].style.minHeight = s.minHeight + 'px';
-    }
-
-    for (i = 0; i < targetLength; i++) {
-      if(targets[i].offsetHeight > tallest) {
-        tallest = targets[i].offsetHeight;
-      }
-    }
-
-    for (i = 0; i < targetLength; i++) {
-      targets[i].style.minHeight = tallest + 'px';
-    }
-
-    return this;
-  };
-
-  var rowify = function(options) {
-    var settings = extend({
-          minHeight : 1,
-          equalize : []
-        }, options),
-        rowSet = [],
-        container = this,
-        i = 0,
-        len = settings.equalize.length;
-
-    this.setEqualHeights = setEqualHeights;
-
-    if (len > 0) {
-      for (i=0; i<len; i++) {
-        rowSet.push($(settings.equalize[i]));
-      }
-
-      for (i=0; i<len; i++) {
-        container.setEqualHeights(settings, rowSet[i]);
-      }
-    } else {
-      container.setEqualHeights(settings, container.children());
-    }
-
-    return this;
-  };
-
   if (typeof define === 'function' && define.amd) {
     define(function() {
-      return rowify;
+      return Rowify;
     });
+  } else {
+    window.Rowify = Rowify;
   }
 
-  if (typeof $ === 'function') {
-    $.fn.rowify = rowify;
-  } else if (typeof jQuery === 'function') {
-    jQuery.fn.rowify = rowify;
-  } else {
-    window.rowify = rowify;
-  }
-})(jQuery);
+})();

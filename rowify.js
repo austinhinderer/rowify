@@ -96,6 +96,12 @@
     return this;
   };
 
+  if (typeof define === 'function' && define.amd) {
+    define(function() {
+      return rowify;
+    });
+  }
+
   if (typeof $ === 'function') {
     $.fn.rowify = rowify;
   } else if (typeof jQuery === 'function') {

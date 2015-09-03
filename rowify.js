@@ -48,21 +48,19 @@
   }
 
   Rowify.prototype.setEqualHeights = function(targets) {
-    var tallest = 1,
+    var tallest = this.settings.minHeight,
         targetLength = targets.length;
 
     for (var i = 0; i < targetLength; i++) {
       targets[i].style.minHeight = this.settings.minHeight + 'px';
-    }
 
-    for (var j = 0; j < targetLength; j++) {
-      if (targets[j].offsetHeight > tallest) {
-        tallest = targets[j].offsetHeight;
+      if (targets[i].offsetHeight > tallest) {
+        tallest = targets[i].offsetHeight;
       }
     }
 
-    for (var k = 0; k < targetLength; k++) {
-      targets[k].style.minHeight = tallest + 'px';
+    for (var j = 0; j < targetLength; j++) {
+      targets[j].style.minHeight = tallest + 'px';
     }
 
     return this;
